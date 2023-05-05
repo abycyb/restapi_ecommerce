@@ -66,3 +66,36 @@ class LoginSerializer(serializers.Serializer):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+    
+
+class ProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductModel
+        fields = ('id', 'name', 'description', 'image', 'price')
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CartItem
+        fields = '__all__'
+
+
+class AddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = "__all__"
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ('product', 'quantity', 'price', 'status')
+
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemSerializer(many=True, read_only=True)
+    class Meta:
+        model = Order
+        fields = ('id', 'user', 'date_ordered', 'complete', 'address', 'status', 'totalprice', 'order_items')
