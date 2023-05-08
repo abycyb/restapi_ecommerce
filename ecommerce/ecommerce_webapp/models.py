@@ -15,7 +15,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
-    
+
 
 class ProductModel(models.Model):
     name = models.CharField(max_length=255)
@@ -84,7 +84,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     STATUS_TYPES = [
        ('PENDING', 'pending'), 
-       ('ORDERED', 'orderd'),             
+       ('ORDERED', 'ordered'),             
        ('SHIPPED', 'shipped'),
        ('ON THE WAY', 'on the way'),
        ('DELIVERD', 'deliverd'),

@@ -38,11 +38,30 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_image = validated_data.pop('image')
-        user = User.objects.create_user(**validated_data)        
+        user = User.objects.create_user(**validated_data)
         user_profile = UserProfile(user=user, role='CUSTOMER',image=user_image)
         user_profile.save()
         return user
 
+
+
+
+    
+# class UserUpdateDeleteserializer(serializers.Serializer):
+
+#     class Meta:
+#         model = UserProfile
+#         fields = ['username', 'password', 'email', 'first_name', 'last_name', 'image']    
+
+#     def update(self,validated_data):
+#         user_image = validated_data.pop('image')
+#         user = User.objects.filter(id=validated_data('id')).update(**validated_data)
+#         # if 'password' in validated_data:
+#         #     user.set_password(validated_data['password'])
+#         user_profile = UserProfile.objects.update(user,role='CUSTOMER', image=user_image)
+#         user_profile.save()
+#         return user
+        
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
@@ -92,7 +111,7 @@ class AddressSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ('product', 'quantity', 'price', 'status')
+        fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True, read_only=True)
